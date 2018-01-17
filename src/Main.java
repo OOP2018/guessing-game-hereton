@@ -6,7 +6,7 @@ public class Main {
 
 	public static void main(String[] args) {
 		// upper limit for secret number in guessing game
-		int upperBound = 20;
+		int upperBound = 10;
 		NumberGame game = new heretonGame(upperBound);
 		// GameConsole ui = new GameConsole();
 		GameSolver solve = new GameSolver();

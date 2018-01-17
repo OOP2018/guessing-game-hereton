@@ -11,26 +11,28 @@ public class GameSolver {
 	 * @return correct number.
 	 */
 	public int play(NumberGame game) {
-		return getBound(game.getUpperBound(), game, game.getUpperBound() / 2);
+		return findSecret(game.getUpperBound(), game, game.getUpperBound() / 2);
 	}
 
-	public int getBound(int upperBond, NumberGame game, int current) {
-		int temp = (upperBond - current) / 2;
-		System.out.println(current);
+	
+	/**
+	 * find secret number using recursion
+	 * @param upperBond game or maximum range number.
+	 * @param game Hereton game.
+	 * @param current current number that the game will guess.
+	 * @return correct secret number.
+	 */
+	private int findSecret(int upperBond, NumberGame game, int current) {
 		game.guess(current);
-		System.out.println(game.getMessage());
 		if (game.getMessage().toLowerCase().contains("small")) {
-			System.out.println("temp: " + temp);
-			System.out.println("upper" + upperBond);
-			System.out.println("current " + current);
-			return getBound(upperBond, game, current + temp);
+			if ((upperBond - current) == 1) {
+				game.guess(current + 1);
+				return current + 1;
+			} else
+				return findSecret(upperBond, game, current + (upperBond - current) / 2);
 		} else if (game.getMessage().toLowerCase().contains("large")) {
-			System.out.println("temp: " + temp);
-			System.out.println("upper" + upperBond);
-			System.out.println("current " + current);
-			return getBound(current, game, current - temp);
+			return findSecret(current - 1, game, current / 2);
 		}
-		System.out.println("kuy");
 		return current;
 	}
 
